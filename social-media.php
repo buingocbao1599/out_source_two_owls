@@ -56,32 +56,32 @@ function filterTermsByLetter($data, $letter)
         <div class="sidebar">
             <h2>Browse by Letter</h2>
             <div class="browse-letter">
-                <a href="#" class="selected" onclick="selectLetter(event)">A</a>
-                <a href="#" onclick="selectLetter(event)">B</a>
-                <a href="#" onclick="selectLetter(event)">C</a>
-                <a href="#" onclick="selectLetter(event)">D</a>
-                <a href="#" onclick="selectLetter(event)">E</a>
-                <a href="#" onclick="selectLetter(event)">F</a>
-                <a href="#" onclick="selectLetter(event)">G</a>
-                <a href="#" onclick="selectLetter(event)">H</a>
-                <a href="#" onclick="selectLetter(event)">I</a>
-                <a href="#" onclick="selectLetter(event)">J</a>
-                <a href="#" onclick="selectLetter(event)">K</a>
-                <a href="#" onclick="selectLetter(event)">L</a>
-                <a href="#" onclick="selectLetter(event)">M</a>
-                <a href="#" onclick="selectLetter(event)">N</a>
-                <a href="#" onclick="selectLetter(event)">O</a>
-                <a href="#" onclick="selectLetter(event)">P</a>
-                <a href="#" onclick="selectLetter(event)">Q</a>
-                <a href="#" onclick="selectLetter(event)">R</a>
-                <a href="#" onclick="selectLetter(event)">S</a>
-                <a href="#" onclick="selectLetter(event)">T</a>
-                <a href="#" onclick="selectLetter(event)">U</a>
-                <a href="#" onclick="selectLetter(event)">V</a>
-                <a href="#" onclick="selectLetter(event)">W</a>
-                <a href="#" onclick="selectLetter(event)">X</a>
-                <a href="#" onclick="selectLetter(event)">Y</a>
-                <a href="#" onclick="selectLetter(event)">Z</a>
+                <a class="selected_alphabet" onclick="selectLetter('A')">A</a>
+                <a onclick="selectLetter('B')">B</a>
+                <a onclick="selectLetter('C')">C</a>
+                <a onclick="selectLetter('D')">D</a>
+                <a onclick="selectLetter('E')">E</a>
+                <a onclick="selectLetter('F')">F</a>
+                <a onclick="selectLetter('G')">G</a>
+                <a onclick="selectLetter('H')">H</a>
+                <a onclick="selectLetter('I')">I</a>
+                <a onclick="selectLetter('J')">J</a>
+                <a onclick="selectLetter('K')">K</a>
+                <a onclick="selectLetter('L')">L</a>
+                <a onclick="selectLetter('M')">M</a>
+                <a onclick="selectLetter('N')">N</a>
+                <a onclick="selectLetter('O')">O</a>
+                <a onclick="selectLetter('P')">P</a>
+                <a onclick="selectLetter('Q')">Q</a>
+                <a onclick="selectLetter('R')">R</a>
+                <a onclick="selectLetter('S')">S</a>
+                <a onclick="selectLetter('T')">T</a>
+                <a onclick="selectLetter('U')">U</a>
+                <a onclick="selectLetter('V')">V</a>
+                <a onclick="selectLetter('W')">W</a>
+                <a onclick="selectLetter('X')">X</a>
+                <a onclick="selectLetter('Y')">Y</a>
+                <a onclick="selectLetter('Z')">Z</a>
             </div>
 
             <h2>Categories</h2>
@@ -146,46 +146,7 @@ function filterTermsByLetter($data, $letter)
                 </div>
                 <p>The text accompanying a photo or video on social media that provides context.</p>
                 <a href="#" class="card_link" onclick="toggleContent()">View Detail <img src="./Frame.svg" class="" /></a>
-            </div>
-            <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Carousel</div>
-                    <div class="card_type_social">Social</div>
-                </div>
-                <p>A type of social media post that allows users to swipe through multiple images.</p>
-                <a href="#" class="card_link">View Detail <img src="./Frame.svg" class="" /></a>
-            </div>
-            <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Chatbot</div>
-                    <div class="card_type_social">AI</div>
-                </div>
-                <p>A software program that uses artificial intelligence to simulate a conversation.</p>
-                <a href="#" class="card_link">View Detail <img src="./Frame.svg" class="" /></a>
-            </div>
-            <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Clickbait</div>
-                    <div class="card_type_social">Content</div>
-                </div>
-                <p>Content that uses misleading or sensational headlines or images to entice viewers.</p>
-                <a href="#" class="card_link">View Detail <img src="./Frame.svg" class="" /></a>
-            </div>
-            <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Comment</div>
-                    <div class="card_type_social">Social</div>
-                </div>
-                <p>A response provided as an answer or reaction to a message on a social network or blog post.</p>
-                <a href="#" class="card_link">View Detail <img src="./Frame.svg" class="" /></a>
-            </div>
-            <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Content Marketing</div>
-                    <div class="card_type_social">Marketing</div>
-                </div>
-                <p>A marketing strategy focused on creating and distributing valuable, relevant, and consistent content.</p>
-                <a href="#" class="card_link">View Detail <img src="./Frame.svg" class="" /></a>
+           
             </div> -->
 
         </div>
@@ -295,7 +256,7 @@ function filterTermsByLetter($data, $letter)
         };
 
         var items = <?php echo json_encode($data); ?>;
-    
+
         var list_terms_filter = items;
         var totalItems = items.length;
         var cards = document.querySelectorAll('.card');
@@ -306,6 +267,7 @@ function filterTermsByLetter($data, $letter)
 
         function renderTerms(list = defaultA) {
             const container = document.getElementById('terms-container');
+
             container.innerHTML = '';
             list?.forEach(term => {
                 const card = `
@@ -320,43 +282,48 @@ function filterTermsByLetter($data, $letter)
                 `;
                 container.innerHTML += card; // Thêm thẻ card vào container
             });
+
+            displayCards();
+
         }
 
-        function selectLetter(event) {
-            event.preventDefault();
+        function selectLetter(letter = 'A') {
+            const upperCaseLetter = letter.toUpperCase();
+            list_terms_filters = items.filter(item => item.term[0].toUpperCase() === upperCaseLetter);
 
-            const letter = event.target.innerText ?? 'A';
-            list_terms_filter = items.filter(item => item.term[0].toUpperCase() === letter.toUpperCase());
+            renderTerms(list_terms_filters);
 
-            renderTerms(list_terms_filter);
-            displayCards();
-          
             const letters = document.querySelectorAll('.browse-letter a');
             letters.forEach(letter => {
-                letter.classList.remove('selected');
+                letter.classList.remove('selected_alphabet');
             });
 
-            event.target.classList.add('selected');
+            const selectedLetterElement = Array.from(letters).find(el => el.innerText.toUpperCase() === upperCaseLetter);
+            if (selectedLetterElement) {
+                selectedLetterElement.classList.add('selected_alphabet');
+            }
         }
 
         function filterByLabel(value) {
             const checkboxes = document.querySelectorAll('.checkbox-label input[type="checkbox"]');
             const selectedLabels = [];
-            
+            let dataRender = []
             checkboxes.forEach(checkbox => {
                 if (checkbox.checked) {
                     selectedLabels.push(value);
                 }
             });
-            console.log("111111: ", selectedLabels, list_terms_filter);
+            const selectedLink = document.querySelector('a.selected_alphabet');
             if (selectedLabels.length > 0) {
-                console.log(items.filter(item => item.term.includes(selectedLabels[0])), 22)
-                list_terms_filter = items.filter(item => item.term.includes(selectedLabels[0]));
+                let dataFilterLabel = list_terms_filter.filter(item => item.category.includes(selectedLabels[0]));
+                dataRender = dataFilterLabel.filter(item => item.term[0].includes(selectedLink?.innerText ?? 'A'));
             } else {
-                list_terms_filter = items; // Hiển thị tất cả nếu không có label nào được chọn
+                dataRender = items.filter(item => item.term[0].includes(selectedLink?.innerText ?? 'A'));
+                list_terms_filter = items;
             }
-
-            renderTerms(list_terms_filter);
+            selectLetter(selectedLink?.innerText ?? 'A');
+         
+            renderTerms(dataRender);
         }
 
         renderTerms();

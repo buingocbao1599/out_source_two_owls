@@ -81,6 +81,18 @@ body {
     color: #4B5563;
     margin-top: 1px;
 }
+a.selected_alphabet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E5E7EB;
+    color: #4B5563;
+    margin-top: 1px;
+}
+
+a:hover{
+    cursor: pointer;
+}
 .screen_content, .content-detail {
     display: none;
     grid-template-columns: repeat(2, 1fr); 
