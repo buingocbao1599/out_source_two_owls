@@ -1,32 +1,6 @@
 <?php
 // Mock kết nối database
-// $host = 'localhost';
-// $dbname = 'social_media';
-// $username =
-// 'root'; $password = '';
-// $dsn = "mysql:host=$host;dbname=$dbname";
-// $pdo = new PDO($dsn, $username, $password);
-// $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// // Lấy dữ liệu từ database
-// $sql = "SELECT * FROM social_media";
-// $stmt = $pdo->query($sql);
-// $socialMedia = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// // Hiển thị dữ liệu
-// foreach ($socialMedia as $item) {
-//     echo $item['name'] . '<br>';
-// }
 include 'data_mock.php';
-$dataDetail = null;
-$data_term_show = [];
-
-function filterTermsByLetter($data, $letter)
-{
-    return array_filter($data, function ($item) use ($letter) {
-        return strtoupper($letter) === strtoupper(substr($item["term"], 0, 1));
-    });
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +9,7 @@ function filterTermsByLetter($data, $letter)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giao diện</title>
+    <title>Dictionary of Social Media Terms</title>
     <link rel="stylesheet" href="./social-media.css" />
 </head>
 
@@ -45,13 +19,13 @@ function filterTermsByLetter($data, $letter)
         <div class="description">Unlock key terms and concepts with our interactive glossary.</div>
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Search for a term...">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon" onclick="searchTerm()">🔍</span>
         </div>
-        <img src="./div.svg" class="img_social" />
-
+        <div class="img_social">
+            <img src="./icon_social.png" />
+        </div>
     </div>
 
-    
     <div class="container">
         <div class="sidebar">
             <h2>Browse by Letter</h2>
@@ -138,49 +112,37 @@ function filterTermsByLetter($data, $letter)
         </div>
 
         <div class="screen_content screen_active" id="terms-container">
-
-            <!-- <div class="card">
-                <div class="card_title">
-                    <div class="card_type_title">Caption</div>
-                    <div class="card_type_social">Social</div>
-                </div>
-                <p>The text accompanying a photo or video on social media that provides context.</p>
-                <a href="#" class="card_link" onclick="toggleContent()">View Detail <img src="./Frame.svg" class="" /></a>
-           
-            </div> -->
-
+            <!-- JS show UI  -->
         </div>
         <div class="screen_detail-content" id="data-container">
             <a class="detail-card-back" onclick="toggleContent()">
                 << Back to the Glossary</a>
                     <div class="detail-card">
                         <div class="card-detail-info" id="card-detail-info">
-                            <!-- <div class="card-detail-info_text_content_marketing">Content Marketing</div>
-
-                            <div class="card-detail-info_text_definition">Definition</div>
-                            <p class="text_p">Engagement rate is a metric that measures the level of interaction by followers and viewers with your social media content. It's typically calculated by dividing the total number of engagements (likes, comments, shares) by the total number of followers or impressions.</p>
-
-                            <div class="card-detail-info_text_example">Examples</div>
-                            <p class="text_p text_example">A post receiving 100 likes from an account with 1,000 followers has a 10% engagement rate</p>
-
-                            <h3>Related Terms</h3>
-                            <div class="related-terms">
-                                <div class="related-term-items">Content</div>
-                                <div class="related-term-items">Content Strategy</div>
-                                <div class="related-term-items">Content Syndication</div>
-                            </div> -->
+                            <!-- JS show UI  -->
                         </div>
                     </div>
                     <div class="content-detail">
-                        <div class="card-detail">
+                        <div class="card-detail" onclick='choiceTermDetail({
+                                    term: "Hashtag",
+                                    definition: "A keyword preceded by # used to categorize and index content.",
+                                    example: "#ThrowbackThursday",
+                                    category: "Social"
+                                })'>
                             <div class="card-detail_title">
                                 <div class="card-detail_type_title">Hashtag</div>
                                 <img class="card-detail_type_social" src="./Frame_thang.svg" />
                             </div>
-                            <p>A word or phrase preceded by the # symbol, used to categorize content and make it discoverable.</p>
+                            <p>A word or phrase preceded by the # symbol, used to categorize content and make it
+                                discoverable.</p>
 
                         </div>
-                        <div class="card-detail">
+                        <div class="card-detail" onclick='choiceTermDetail({
+                                    term: "Reach",
+                                    definition: "The total number of unique users who see content.",
+                                    example: "A tweet appearing in 50,000 timelines (reach = 50,000).",
+                                    category: "Analytics"
+                                })'>
                             <div class="card-detail_title">
                                 <div class="card-detail_type_title">Reach</div>
                                 <img class="card-detail_type_social" src="./Frame_cot.svg" />
@@ -188,15 +150,26 @@ function filterTermsByLetter($data, $letter)
                             <p>The total number of unique users who see your content on a social media platform.</p>
 
                         </div>
-                        <div class="card-detail">
+                        <div class="card-detail" onclick='choiceTermDetail({
+                                    term: "Content Curation",
+                                    definition: "The act of collecting, organizing, and sharing relevant content from other sources.",
+                                    example: "A marketing agency reporting an industry expert’s article.",
+                                    category: "Social"
+                                })'>
                             <div class="card-detail_title">
-                                <div class="card-detail_type_title">Social Listening</div>
+                                <div class="card-detail_type_title">Content Curation</div>
                                 <img class="card-detail_type_social" src="./Frame_listen.svg" />
                             </div>
-                            <p>Monitoring social media channels for mentions and conversations related to your brand.</p>
+                            <p>Monitoring social media channels for mentions and conversations related to your brand.
+                            </p>
 
                         </div>
-                        <div class="card-detail">
+                        <div class="card-detail" onclick='choiceTermDetail({
+                                    term: "Algorithm",
+                                    definition: "A set of rules and calculations used by social media platforms to prioritize and display content based on user engagement, relevance, and recency.",
+                                    example: "Instagram ranks posts with high engagement (likes/comments) higher in feeds.",
+                                    category: "Platform"
+                                })'>
                             <div class="card-detail_title">
                                 <div class="card-detail_type_title">Algorithm</div>
                                 <img class="card-detail_type_social" src="./Frame_code.svg" />
@@ -216,47 +189,38 @@ function filterTermsByLetter($data, $letter)
 
     <script>
         const defaultA = [{
-                "term": "A/B Testing",
-                "definition": "A method of comparing two variations of content (e.g., ads, posts, emails) to determine which performs better based on engagement metrics.",
-                "example": "Testing two versions of a Facebook ad with different CTAs: 'Sign Up Now' vs. 'Learn More.'",
-                "category": "Analytics"
-            },
-            {
-                "term": "Ad Scheduling",
-                "definition": "The practice of setting specific times and days for ads to be displayed to maximize reach or engagement.",
-                "example": "Scheduling Instagram ads to run only during evenings and weekends.",
-                "category": "Analytics"
-            },
-            {
-                "term": "Algorithm",
-                "definition": "A set of rules and calculations used by social media platforms to prioritize and display content based on user engagement, relevance, and recency.",
-                "example": "Instagram ranks posts with high engagement (likes/comments) higher in feeds.",
-                "category": "Platform"
-            },
-            {
-                "term": "Analytics",
-                "definition": "The process of collecting and analyzing data to evaluate social media performance and effectiveness.",
-                "example": "Using Facebook Insights to track post reach, engagement, and conversions.",
-                "category": "Analytics"
-            },
-            {
-                "term": "Avatar",
-                "definition": "A profile picture or digital representation of a user or brand on social media.",
-                "example": "A company using its logo as its Twitter profile image.",
-                "category": "Social"
-            }
-        ]
-        // JS phân trang
-        var tearm_detail = {
             "term": "A/B Testing",
             "definition": "A method of comparing two variations of content (e.g., ads, posts, emails) to determine which performs better based on engagement metrics.",
             "example": "Testing two versions of a Facebook ad with different CTAs: 'Sign Up Now' vs. 'Learn More.'",
-            "category": "Analytics",
-            "relatedTerms": ['Content', 'Content Strategy', 'Content Syndication'],
-        };
-
+            "category": "Analytics"
+        },
+        {
+            "term": "Ad Scheduling",
+            "definition": "The practice of setting specific times and days for ads to be displayed to maximize reach or engagement.",
+            "example": "Scheduling Instagram ads to run only during evenings and weekends.",
+            "category": "Analytics"
+        },
+        {
+            "term": "Algorithm",
+            "definition": "A set of rules and calculations used by social media platforms to prioritize and display content based on user engagement, relevance, and recency.",
+            "example": "Instagram ranks posts with high engagement (likes/comments) higher in feeds.",
+            "category": "Platform"
+        },
+        {
+            "term": "Analytics",
+            "definition": "The process of collecting and analyzing data to evaluate social media performance and effectiveness.",
+            "example": "Using Facebook Insights to track post reach, engagement, and conversions.",
+            "category": "Analytics"
+        },
+        {
+            "term": "Avatar",
+            "definition": "A profile picture or digital representation of a user or brand on social media.",
+            "example": "A company using its logo as its Twitter profile image.",
+            "category": "Social"
+        }
+        ]
+        // JS phân trang
         var items = <?php echo json_encode($data); ?>;
-
         var list_terms_filter = items;
         var totalItems = items.length;
         var cards = document.querySelectorAll('.card');
@@ -264,6 +228,8 @@ function filterTermsByLetter($data, $letter)
         const btnPrev = document.getElementById('prev');
         let currentPage = 0;
         const cardsPerPage = 6;
+
+        var term_selected_detail = null;
 
         function renderTerms(list = defaultA) {
             const container = document.getElementById('terms-container');
@@ -277,14 +243,13 @@ function filterTermsByLetter($data, $letter)
                             <div class="card_type_social">${term.category}</div>
                         </div>
                         <p>${term.definition}</p>
-                        <a href="#" class="card_link" onclick="toggleContent()">View Detail <img src="./Frame.svg" /></a>
+                        <a class="card_link" onclick="toggleContent();choiceTermDetail(${JSON.stringify(term).replace(/"/g, '&quot;')});">View Detail <img src="./Frame.svg" /></a>
                     </div>
                 `;
                 container.innerHTML += card; // Thêm thẻ card vào container
             });
 
             displayCards();
-
         }
 
         function selectLetter(letter = 'A') {
@@ -322,7 +287,7 @@ function filterTermsByLetter($data, $letter)
                 list_terms_filter = items;
             }
             selectLetter(selectedLink?.innerText ?? 'A');
-         
+
             renderTerms(dataRender);
         }
 
@@ -402,17 +367,58 @@ function filterTermsByLetter($data, $letter)
         // Hàm để hiển thị dữ liệu trên HTML
         function showData() {
             const cardDetailInfo = document.getElementById('card-detail-info');
+
+            const suggestionTerms = items
+                .filter(item => item?.category == term_selected_detail?.category && item?.term != term_selected_detail?.term)
+                .slice(0, 3)
+                ?? [];
+
             cardDetailInfo.innerHTML = `
-                <div class="card-detail-info_text_content_marketing">${tearm_detail.term}</div>
+                <div class="card-detail-info_text_content_marketing">${term_selected_detail?.term}</div>
                 <div class="card-detail-info_text_definition">Definition</div>
-                <p class="text_p">${tearm_detail.definition}</p>
+                <p class="text_p">${term_selected_detail?.definition}</p>
                 <div class="card-detail-info_text_example">Examples</div>
-                <p class="text_p text_example">${tearm_detail.example}</p>
+                <p class="text_p text_example">${term_selected_detail?.example}</p>
                 <h3>Related Terms</h3>
                 <div class="related-terms">
-                    ${tearm_detail.relatedTerms.map(term => `<div class="related-term-items">${term}</div>`).join('')}
+                        ${suggestionTerms?.map(term =>
+                `<div 
+                                class="related-term-items" 
+                                onclick="choiceTermDetail(${JSON.stringify(term).replace(/"/g, '&quot;')})">
+                                    ${term?.term}
+                            </div>`).join('')}
                 </div>
+                
             `;
+
+        }
+
+        function choiceTermDetail(term = null) {
+            term_selected_detail = term;
+            showData();
+        }
+
+        function searchTerm() {
+            const input = document.querySelector('.search-input');
+            const query = input.value.toLowerCase();
+            const resultsContainer = document.getElementById('terms-container');
+            const selectedLink = document.querySelector('a.selected_alphabet');
+
+            // Xóa kết quả trước đó
+            resultsContainer.innerHTML = '';
+
+            // Tìm kiếm trong danh sách
+            const results = items.filter(item => item.term.toLowerCase().includes(query));
+            const resultNotFound = items.filter(item => item.term[0].includes(selectedLink?.innerText ?? 'A'));
+            // Hiển thị kết quả
+            if (results.length > 0) {
+                results.forEach(item => {
+                    renderTerms(results)
+                });
+            } else {
+                // resultsContainer.innerHTML = '<div>No results found.</div>';
+                renderTerms(resultNotFound)
+            }
         }
 
         // Gọi hàm để hiển thị dữ liệu
